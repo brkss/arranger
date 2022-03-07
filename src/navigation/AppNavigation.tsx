@@ -7,7 +7,7 @@ export const AppNavigation : React.FC = () => {
   const { Group, Navigator, Screen } = createStackNavigator();
 
   return(
-    <Navigator>
+    <Navigator screenOptions={{headerShown: false}}>
       <Group>
         <Screen name={'Home'} component={Home} />
       </Group>
