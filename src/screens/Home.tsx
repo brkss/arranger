@@ -2,70 +2,59 @@ import React from "react";
 import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 import { Task } from "../components";
 
-/*
-interface ICircle {
+interface ITask {
   name: string;
-  x: number;
-  y: number;
-  d: number;
   time: string;
+  progress: number;
 }
-const circles: ICircle[] = [
+
+const tasks: ITask[] = [
   {
-    name: "TASK 1",
-    time: "01:00:00",
-    x: 150,
-    y: 150,
-    d: 100,
+    progress: 30,
+    time: "02:33:01",
+    name: "TASK N22",
   },
   {
-    name: "TASK 1",
-    time: "01:00:00",
-    x: 250,
-    y: 150,
-    d: 200,
+    progress: 60,
+    time: "01:04:00",
+    name: "TASK N3",
+  },
+  {
+    progress: 60,
+    time: "01:04:00",
+    name: "TASK N4",
+  },
+  {
+    progress: 60,
+    time: "01:04:00",
+    name: "TASK N10",
+  },
+  {
+    progress: 60,
+    time: "01:04:00",
+    name: "TASK N9",
+  },
+  {
+    progress: 60,
+    time: "01:04:00",
+    name: "TASK N00",
   },
 ];
- */
+
 export const Home: React.FC = () => {
   return (
     <View style={styles.container}>
       <SafeAreaView>
         <View style={styles.row}>
-          <View style={styles.item}>
-            <Task />
-          </View>
-          <View style={styles.item}>
-            <Task />
-          </View>
+          {
+            tasks.map((task, key) => (
+              <View style={styles.item}>
+                <Task name={task.name} time={task.time} progress={task.progress} />
+              </View>
+            ))
+          }
         </View>
       </SafeAreaView>
-
-      {/*
-      <ReactNativeZoomableView
-        maxZoom={1.5}
-        minZoom={0.5}
-      </View>
-        initialZoom={1}
-        //bindToBorders={true}
-        movementSensibility={1}
-        style={{
-          padding: 10,
-          //backgroundColor: "red",
-        }}
-      >
-        {circles.map((c, key) => (
-          <Circle
-            name={c.name}
-            time={c.time}
-            d={c.d}
-            x={c.x}
-            y={c.y}
-            key={key}
-          />
-        ))}
-      </ReactNativeZoomableView>
-      */}
     </View>
   );
 };
@@ -73,14 +62,14 @@ export const Home: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 5,
+    //padding: 5,
   },
   row: {
     flexDirection: "row",
     flexWrap: "wrap",
   },
   item: {
-    padding: 5,
+    //padding: 5,
     width: "50%",
   },
 });
