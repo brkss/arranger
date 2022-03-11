@@ -1,8 +1,8 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { Circle } from "../components";
-import ReactNativeZoomableView from "@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView";
+import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import { Task } from "../components";
 
+/*
 interface ICircle {
   name: string;
   x: number;
@@ -10,7 +10,6 @@ interface ICircle {
   d: number;
   time: string;
 }
-
 const circles: ICircle[] = [
   {
     name: "TASK 1",
@@ -27,16 +26,26 @@ const circles: ICircle[] = [
     d: 200,
   },
 ];
-
+ */
 export const Home: React.FC = () => {
   return (
-    <View style={{ flex: 1, width: "400%" }}>
-      
+    <View style={styles.container}>
+      <SafeAreaView>
+        <View style={styles.row}>
+          <View style={styles.item}>
+            <Task />
+          </View>
+          <View style={styles.item}>
+            <Task />
+          </View>
+        </View>
+      </SafeAreaView>
+
       {/*
       <ReactNativeZoomableView
         maxZoom={1.5}
         minZoom={0.5}
-        zoomStep={0.1}
+      </View>
         initialZoom={1}
         //bindToBorders={true}
         movementSensibility={1}
@@ -60,3 +69,18 @@ export const Home: React.FC = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 5,
+  },
+  row: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  item: {
+    padding: 5,
+    width: "50%",
+  },
+});
