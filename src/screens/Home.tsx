@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, SafeAreaView } from "react-native";
-import { Task } from "../components";
+import { Task, Add } from "../components";
 
 interface ITask {
   name: string;
@@ -46,6 +46,9 @@ export const Home: React.FC = () => {
     <View style={styles.container}>
       <SafeAreaView>
         <View style={styles.row}>
+          <View style={{width: '100%'}}>
+            <Add />
+          </View>
           {
             tasks.map((task, key) => (
               <View style={styles.item}>
