@@ -31,16 +31,7 @@ const circles: ICircle[] = [
 export const Home: React.FC = () => {
   return (
     <View style={{ flex: 1, width: "400%" }}>
-      {circles.map((c, key) => (
-          <Circle
-            name={c.name}
-            time={c.time}
-            d={c.d}
-            x={c.x}
-            y={c.y}
-            key={key}
-          />
-        ))}
+      
       {/*
       <ReactNativeZoomableView
         maxZoom={1.5}
