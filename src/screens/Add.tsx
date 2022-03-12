@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
-import { Input, FormButton } from "../components";
+import { Input, FormButton, LimitInput } from "../components";
 
 export const Add: React.FC = () => {
   return (
@@ -9,7 +9,7 @@ export const Add: React.FC = () => {
         <Text style={styles.heading}>Create New {"\n"}Task.</Text>
         <View>
           <Input onChange={(v) => {}} placeholder={'NAME'} />
-          <Input onChange={(v) => {}} placeholder={'LIMIT'} />
+          <LimitInput />
           <FormButton pressed={() => {}} />
         </View>
       </View>
