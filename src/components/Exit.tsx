@@ -1,12 +1,16 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 
-export const ExitButton: React.FC = () => {
+interface Props {
+  exit: () => void;
+}
+
+export const ExitButton: React.FC<Props> = ({exit}) => {
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={() => exit()}>
       <View style={styles.circle} />
       <Text style={styles.title}>EXIT</Text>
-    </View>
+    </Pressable>
   );
 };
 

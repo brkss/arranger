@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     color: "#0008FD",
   },
   timeContainer: {
-    marginTop: 40,
+    //marginTop: 40,
   },
   timeUnit: {
     flexDirection: "row",
