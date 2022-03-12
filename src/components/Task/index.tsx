@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import Svg, { Polyline } from "react-native-svg";
 import { ProgressBar } from "./Progress";
+import { Tag } from "./Tag";
 
 interface Props {
   name: string;
@@ -23,6 +23,7 @@ export const Task: React.FC<Props> = ({ name, time, progress, active }) => {
         },
       ]}
     >
+      {active ? <Tag /> : null}
       <Text style={styles.title}>{name}</Text>
       <Text style={styles.time}>{time}</Text>
       <ProgressBar />
