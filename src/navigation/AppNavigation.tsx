@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Home } from '../screens';
+import { Home, Timer } from '../screens';
 
 export const AppNavigation : React.FC = () => {
 
@@ -10,6 +10,7 @@ export const AppNavigation : React.FC = () => {
     <Navigator screenOptions={{headerShown: false}}>
       <Group>
         <Screen name={'Home'} component={Home} />
+        <Screen name={'Timer'} component={Timer} />
       </Group>
     </Navigator>
   )
