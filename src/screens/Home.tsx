@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, SafeAreaView, Alert } from "react-native";
 import { Task, AddButton, NavigationMenu } from "../components";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useIsFocused } from '@react-navigation/native';
 
 interface ITask {
   name: string;
@@ -11,6 +12,8 @@ interface ITask {
 }
 
 export const Home: React.FC<any> = ({ navigation }) => {
+  const isFocused = useIsFocused();
+
   const [tasks, SetTasks] = React.useState<ITask[]>([]);
 
   const deleteTaskAlert = (name: string) =>
@@ -28,7 +31,7 @@ export const Home: React.FC<any> = ({ navigation }) => {
       const _tasks = JSON.parse((await AsyncStorage.getItem("TASKS")) || "[]");
       SetTasks(_tasks);
     })();
-  }, []);
+  }, [isFocused]);
 
   return (
     <View style={styles.container}>
