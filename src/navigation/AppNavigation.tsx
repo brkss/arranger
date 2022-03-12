@@ -9,8 +9,8 @@ export const AppNavigation : React.FC = () => {
   return(
     <Navigator screenOptions={{headerShown: false}}>
       <Group>
-        <Screen name={'Home'} component={Home} />
         <Screen name={'Timer'} component={Timer} />
+        <Screen name={'Home'} component={Home} />
       </Group>
     </Navigator>
   )
