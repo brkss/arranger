@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, SafeAreaView } from "react-native";
-import { Task, Add, NavigationMenu } from "../components";
+import { Task, AddButton, NavigationMenu } from "../components";
 
 interface ITask {
   name: string;
@@ -52,10 +52,10 @@ export const Home: React.FC<any> = ({ navigation }) => {
             <NavigationMenu navigation={navigation} />
           </View>
           <View style={{ width: "100%" }}>
-            <Add />
+            <AddButton add={() => navigation.push("add")} />
           </View>
           {tasks.map((task, key) => (
-            <View style={styles.item}>
+            <View key={key} style={styles.item}>
               <Task
                 name={task.name}
                 time={task.time}

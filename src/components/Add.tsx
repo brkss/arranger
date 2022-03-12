@@ -1,9 +1,13 @@
 import React from "react";
 import { Pressable, Text, StyleSheet } from "react-native";
 
-export const Add: React.FC = () => {
+interface Props {
+  add: () => void;
+}
+
+export const AddButton : React.FC<Props> = ({add}) => {
   return (
-    <Pressable style={styles.container}>
+    <Pressable style={styles.container} onPress={() => add()}>
       <Text style={styles.txt}>ADD</Text>
     </Pressable>
   );
