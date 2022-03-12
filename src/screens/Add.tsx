@@ -2,8 +2,9 @@ import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { Input, FormButton, LimitInput } from "../components";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import uuid from 'react-native-uuid';
 
-export const Add: React.FC = () => {
+export const Add: React.FC<any> = ({navigation}) => {
   const [form, SetForm] = React.useState<any>({});
 
   const handleForm = (key: string, val: string) => {
@@ -20,6 +21,7 @@ export const Add: React.FC = () => {
     }
     const tasks = JSON.parse((await AsyncStorage.getItem("TASKS")) || "[]");
     const data = {
+      uid: uuid.v4(), 
       name: form.name,
       limitHour: parseInt(form.hours) || 0,
       limitMinutes: parseInt(form.minutes) || 0,
@@ -29,7 +31,7 @@ export const Add: React.FC = () => {
     };
     tasks.push(data);
     AsyncStorage.setItem('TASKS', JSON.stringify(tasks));
-    //console.log("ADD DATA : ", data);
+    navigation.goBack();
   };
 
   return (

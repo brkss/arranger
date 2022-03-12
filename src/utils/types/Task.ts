@@ -1,6 +1,7 @@
 
 
 export interface ITask {
+  uid: string;
   name: string;
   limitHour: number;
   limitMinutes: number;
