@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, SafeAreaView } from "react-native";
-import { Task, Add } from "../components";
+import { Task, Add, NavigationMenu } from "../components";
 
 interface ITask {
   name: string;
@@ -41,21 +41,28 @@ const tasks: ITask[] = [
   },
 ];
 
-export const Home: React.FC = () => {
+export const Home: React.FC<any> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <SafeAreaView>
         <View style={styles.row}>
-          <View style={{width: '100%'}}>
+          <View
+            style={{ width: "100%", minHeight: 100, justifyContent: "center" }}
+          >
+            <NavigationMenu navigation={navigation} />
+          </View>
+          <View style={{ width: "100%" }}>
             <Add />
           </View>
-          {
-            tasks.map((task, key) => (
-              <View style={styles.item}>
-                <Task name={task.name} time={task.time} progress={task.progress} />
-              </View>
-            ))
-          }
+          {tasks.map((task, key) => (
+            <View style={styles.item}>
+              <Task
+                name={task.name}
+                time={task.time}
+                progress={task.progress}
+              />
+            </View>
+          ))}
         </View>
       </SafeAreaView>
     </View>

@@ -1,23 +1,32 @@
-import React from 'react';
-import { View, SafeAreaView, Text, StyleSheet } from 'react-native';
-import {   EndTaskTimerButtom} from '../components'
+import React from "react";
+import { View, SafeAreaView, Text, StyleSheet } from "react-native";
+import { TimerCount, EndTaskTimerButtom, ExitButton } from "../components";
 
-export const Timer : React.FC = () => {
-
-  return(
+export const Timer: React.FC = () => {
+  return (
     <View style={styles.container}>
-      <SafeAreaView style={{flex: 1}}>
-        <EndTaskTimerButtom />            
+      <SafeAreaView style={{ flex: 1 }}>
+        <View>
+          <ExitButton />
+        </View>
+        <View style={{ flex: 1, justifyContent: "center" }}>
+          <Text style={styles.title}>STUDYING MATH</Text>
+          <TimerCount />
+        </View>
+        <EndTaskTimerButtom />
       </SafeAreaView>
     </View>
-  )
-}
+  );
+};
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#151515',
-  }
-})
-
-
-  
+    backgroundColor: "#151515",
+  },
+  title: {
+    fontFamily: "condesed",
+    fontWeight: "bold",
+    fontSize: 30,
+    color: "#0008FD",
+  },
+});
