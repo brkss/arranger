@@ -15,12 +15,15 @@ export const FormButton: React.FC<Props> = ({ pressed }) => {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 10,
     backgroundColor: "#464646",
     padding: 10,
   },
   txt: {
     fontWeight: "bold",
     fontFamily: "condesed",
-    fontSize: 20,
+    fontSize: 27,
+    color: "#D8D8D8",
+    textAlign: "center",
   },
 });

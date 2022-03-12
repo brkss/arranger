@@ -4,7 +4,7 @@ import { View, StyleSheet, TextInput } from "react-native";
 export const Input: React.FC = () => {
   return (
     <View style={styles.container}>
-      <TextInput placeholder={"NAME"} />
+      <TextInput placeholder={"NAME"} style={styles.input} />
     </View>
   );
 };
@@ -19,7 +19,9 @@ const styles = StyleSheet.create({
     //backgroundColor: "red",
   },
   input: {
-    padding: 5,
     width: "100%",
+    fontFamily: "condesed",
+    fontWeight: "bold",
+    fontSize: 21,
   },
 });

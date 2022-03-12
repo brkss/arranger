@@ -1,6 +1,6 @@
 import React from "react";
-import { SafeAreaView, View, StyleSheet, Text } from "react-native";
-import { Input } from "../components";
+import { View, StyleSheet, Text } from "react-native";
+import { Input, FormButton } from "../components";
 
 export const Add: React.FC = () => {
   return (
@@ -9,6 +9,7 @@ export const Add: React.FC = () => {
         <Text style={styles.heading}>Create New {"\n"}Task.</Text>
         <View>
           <Input />
+          <FormButton />
         </View>
       </View>
     </View>
