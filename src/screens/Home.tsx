@@ -2,28 +2,22 @@ import React from "react";
 import { View, Text, StyleSheet, SafeAreaView, Alert } from "react-native";
 import { Task, AddButton, NavigationMenu } from "../components";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useIsFocused } from '@react-navigation/native';
-
-interface ITask {
-  name: string;
-  time: string;
-  progress: number;
-  active: boolean;
-}
+import { useIsFocused } from "@react-navigation/native";
+import { ITask } from "../utils/types";
 
 export const Home: React.FC<any> = ({ navigation }) => {
   const isFocused = useIsFocused();
 
   const [tasks, SetTasks] = React.useState<ITask[]>([]);
 
-  const deleteTaskAlert = (name: string) =>
+  const deleteTaskAlert = (name: string, id: string) =>
     Alert.alert("DELETE TASK", `Are you sure you want to delete ${name} ?`, [
       {
         text: "Cancel",
         onPress: () => console.log("Cancel Pressed"),
         style: "cancel",
       },
-      { text: "YES", onPress: () => console.log("OK Pressed") },
+      { text: "YES", onPress: async () => await deleteTask(id) },
     ]);
 
   React.useEffect(() => {
@@ -32,6 +26,16 @@ export const Home: React.FC<any> = ({ navigation }) => {
       SetTasks(_tasks);
     })();
   }, [isFocused]);
+
+  const deleteTask = async (id: string) => {
+    const index = tasks.findIndex((x) => x.uid === id);
+    if (index !== -1) {
+      tasks.splice(index, 1)
+      const tmp = tasks ;
+      await AsyncStorage.setItem("TASKS", JSON.stringify(tmp));
+      SetTasks([...tmp]);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -49,11 +53,11 @@ export const Home: React.FC<any> = ({ navigation }) => {
             <View key={key} style={styles.item}>
               <Task
                 press={() => {}}
-                longPress={() => deleteTaskAlert(task.name)}
+                longPress={() => deleteTaskAlert(task.name, task.uid)}
                 active={task.active}
                 name={task.name}
                 time={task.time}
-                progress={task.progress}
+                progress={0}
               />
             </View>
           ))}
