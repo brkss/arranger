@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 import { Task, AddButton, NavigationMenu } from "../components";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface ITask {
   name: string;
@@ -49,6 +50,15 @@ const tasks: ITask[] = [
 ];
 
 export const Home: React.FC<any> = ({ navigation }) => {
+  const [tasks, SetTasks] = React.useState<ITask[]>([]);
+
+  React.useEffect(() => {
+    (async () => {
+      const _tasks = JSON.parse((await AsyncStorage.getItem("TASKS")) || "[]");
+      SetTasks(_tasks);
+    })();
+  }, []);
+
   return (
     <View style={styles.container}>
       <SafeAreaView>
