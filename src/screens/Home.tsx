@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView, Alert } from "react-native";
 import { Task, AddButton, NavigationMenu } from "../components";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -10,47 +10,18 @@ interface ITask {
   active: boolean;
 }
 
-const tasks: ITask[] = [
-  {
-    progress: 30,
-    time: "02:33:01",
-    name: "TASK N22",
-    active: true,
-  },
-  {
-    progress: 60,
-    time: "01:04:00",
-    name: "TASK N3",
-    active: false,
-  },
-  {
-    progress: 60,
-    time: "01:04:00",
-    name: "TASK N4",
-    active: false,
-  },
-  {
-    progress: 60,
-    time: "01:04:00",
-    name: "TASK N10",
-    active: false,
-  },
-  {
-    progress: 60,
-    time: "01:04:00",
-    name: "TASK N9",
-    active: false,
-  },
-  {
-    progress: 60,
-    time: "01:04:00",
-    name: "TASK N00",
-    active: false,
-  },
-];
-
 export const Home: React.FC<any> = ({ navigation }) => {
   const [tasks, SetTasks] = React.useState<ITask[]>([]);
+
+  const deleteTaskAlert = (name: string) =>
+    Alert.alert("DELETE TASK", `Are you sure you want to delete ${name} ?`, [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      { text: "YES", onPress: () => console.log("OK Pressed") },
+    ]);
 
   React.useEffect(() => {
     (async () => {
@@ -74,6 +45,8 @@ export const Home: React.FC<any> = ({ navigation }) => {
           {tasks.map((task, key) => (
             <View key={key} style={styles.item}>
               <Task
+                press={() => {}}
+                longPress={() => deleteTaskAlert(task.name)}
                 active={task.active}
                 name={task.name}
                 time={task.time}

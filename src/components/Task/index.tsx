@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { Pressable, Text, StyleSheet } from "react-native";
 import { ProgressBar } from "./Progress";
 import { Tag } from "./Tag";
 
@@ -8,11 +8,15 @@ interface Props {
   time: string;
   progress: number;
   active: boolean;
+  press: () => void;
+  longPress: () => void;
 }
 
-export const Task: React.FC<Props> = ({ name, time, progress, active }) => {
+export const Task: React.FC<Props> = ({ name, time, progress, active, press, longPress }) => {
   return (
-    <View
+    <Pressable
+      onPress={() => press()}
+      onLongPress={() => longPress()}
       style={[
         styles.container,
         {
@@ -27,7 +31,7 @@ export const Task: React.FC<Props> = ({ name, time, progress, active }) => {
       <Text style={styles.title}>{name}</Text>
       <Text style={styles.time}>{time}</Text>
       <ProgressBar />
-    </View>
+    </Pressable>
   );
 };
 
