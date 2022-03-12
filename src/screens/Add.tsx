@@ -8,8 +8,9 @@ export const Add: React.FC = () => {
       <View style={styles.incube}>
         <Text style={styles.heading}>Create New {"\n"}Task.</Text>
         <View>
-          <Input />
-          <FormButton />
+          <Input onChange={(v) => {}} placeholder={'NAME'} />
+          <Input onChange={(v) => {}} placeholder={'LIMIT'} />
+          <FormButton pressed={() => {}} />
         </View>
       </View>
     </View>

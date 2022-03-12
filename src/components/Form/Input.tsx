@@ -1,10 +1,15 @@
 import React from "react";
 import { View, StyleSheet, TextInput } from "react-native";
 
-export const Input: React.FC = () => {
+interface Props {
+  placeholder: string;
+  onChange: (t: string) => void;
+}
+
+export const Input: React.FC<Props> = ({onChange, placeholder}) => {
   return (
     <View style={styles.container}>
-      <TextInput placeholder={"NAME"} style={styles.input} />
+      <TextInput placeholder={placeholder} onChangeText={(t) => onChange(t)} style={styles.input} />
     </View>
   );
 };
