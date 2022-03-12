@@ -24,8 +24,12 @@ export const Add: React.FC = () => {
       limitHour: parseInt(form.hours) || 0,
       limitMinutes: parseInt(form.minutes) || 0,
       time: "00:00:00",
+      start: new Date().getTime(),
+      active: false,
     };
-    console.log("ADD DATA : ", data);
+    tasks.push(data);
+    AsyncStorage.setItem('TASKS', JSON.stringify(tasks));
+    //console.log("ADD DATA : ", data);
   };
 
   return (

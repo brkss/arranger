@@ -1,20 +1,24 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { formatTime, useTimer } from "../../utils";
+
+const TIME = new Date().getTime();
 
 export const TimerCount: React.FC = () => {
+  const time = useTimer(TIME);
   return (
     <View style={styles.container}>
       <View style={styles.timeContainer}>
         <View style={styles.timeUnit}>
-          <Text style={styles.value}>09</Text>
+          <Text style={styles.value}>{formatTime(time.hours)}</Text>
           <Text style={styles.unit}>Hours</Text>
         </View>
         <View style={styles.timeUnit}>
-          <Text style={styles.value}>19</Text>
+          <Text style={styles.value}>{formatTime(time.minutes)}</Text>
           <Text style={styles.unit}>Minutes</Text>
         </View>
         <View style={styles.timeUnit}>
-          <Text style={styles.value}>00</Text>
+          <Text style={styles.value}>{formatTime(time.seconds)}</Text>
           <Text style={styles.unit}>Seconds</Text>
         </View>
       </View>
