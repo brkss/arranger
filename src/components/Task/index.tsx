@@ -46,9 +46,13 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: "bold",
     fontSize: 20,
+    fontFamily: "condesed",
+    color: "#434343",
   },
   time: {
     fontSize: 14,
     fontWeight: "600",
+    fontFamily: "condesed",
+    color: "#434343",
   },
 });
