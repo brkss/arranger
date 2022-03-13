@@ -8,4 +8,5 @@ export interface ITask {
   time: string;
   start: number;
   active: boolean;
+  progress: number;
 }

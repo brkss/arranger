@@ -2,11 +2,11 @@ import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { Input, FormButton, LimitInput } from "../components";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import uuid from 'react-native-uuid';
+import uuid from "react-native-uuid";
 
-export const Add: React.FC<any> = ({navigation}) => {
+export const Add: React.FC<any> = ({ navigation }) => {
   const [form, SetForm] = React.useState<any>({});
-
+      progress: 0 
   const handleForm = (key: string, val: string) => {
     SetForm({
       ...form,
@@ -21,16 +21,17 @@ export const Add: React.FC<any> = ({navigation}) => {
     }
     const tasks = JSON.parse((await AsyncStorage.getItem("TASKS")) || "[]");
     const data = {
-      uid: uuid.v4(), 
+      uid: uuid.v4(),
       name: form.name,
       limitHour: parseInt(form.hours) || 0,
       limitMinutes: parseInt(form.minutes) || 0,
       time: "00:00:00",
       start: new Date().getTime(),
       active: false,
+      progress: 0,
     };
     tasks.push(data);
-    AsyncStorage.setItem('TASKS', JSON.stringify(tasks));
+    AsyncStorage.setItem("TASKS", JSON.stringify(tasks));
     navigation.goBack();
   };
 
