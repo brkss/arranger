@@ -10,8 +10,7 @@ export const Home: React.FC<any> = ({ navigation }) => {
 
   const [tasks, SetTasks] = React.useState<ITask[]>([]);
 
-  const deleteTaskAlert = (name: string, id: string) =>
-  {
+  const deleteTaskAlert = (name: string, id: string) => {
     Alert.alert("DELETE TASK", `Are you sure you want to delete ${name} ?`, [
       {
         text: "Cancel",
@@ -20,8 +19,8 @@ export const Home: React.FC<any> = ({ navigation }) => {
       },
       { text: "YES", onPress: async () => await deleteTask(id) },
     ]);
-  }
-  
+  };
+
   React.useEffect(() => {
     (async () => {
       const _tasks = JSON.parse((await AsyncStorage.getItem("TASKS")) || "[]");
@@ -39,7 +38,7 @@ export const Home: React.FC<any> = ({ navigation }) => {
     }
   };
 
-  const activeTask = (id: string) => {
+  const activeTask = async (id: string) => {
     const index = tasks.findIndex((x) => x.uid == id);
     if (index != -1) {
       let isActive = false;
@@ -49,8 +48,8 @@ export const Home: React.FC<any> = ({ navigation }) => {
         active: false,
       }));
       if (!isActive) tmp[index].active = true;
-      console.log("TASKS => ", tmp);
       SetTasks([...tmp]);
+      await AsyncStorage.setItem("TASKS", JSON.stringify(tmp));
     }
   };
 
