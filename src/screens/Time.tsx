@@ -1,19 +1,43 @@
 import React from "react";
 import { View, SafeAreaView, Text, StyleSheet } from "react-native";
-import { TimerCount, EndTaskTimerButtom, ExitButton } from "../components";
+import { NoTaskInfo, TimerCount, EndTaskTimerButtom, ExitButton } from "../components";
+import { ITask } from "../utils/types";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getTasks } from "../utils/modules";
 
-export const Timer: React.FC<any> = ({navigation}) => {
+export const Timer: React.FC<any> = ({ navigation }) => {
+  const [task, setTask] = React.useState<ITask | null>(null);
+
+  const getActiveTask = async () => {
+    const tasks = await getTasks();
+    const index = tasks.findIndex(x => x.active);
+    if(index != -1){
+      setTask(tasks[index])
+    }
+  };
+
+  React.useEffect(() => {
+    (async () => {
+      await getActiveTask();
+    })();
+  }, []);
+
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <View>
           <ExitButton exit={() => navigation.goBack()} />
         </View>
-        <View style={{ flex: 1, justifyContent: "center" }}>
-          <Text style={styles.title}>STUDYING MATH</Text>
-          <TimerCount />
-        </View>
-        <EndTaskTimerButtom />
+        {
+          task ? 
+            <View>
+              <View style={{ flex: 1, justifyContent: "center" }}>
+                <Text style={styles.title}>STUDYING MATH</Text>
+                <TimerCount />
+              </View>
+            </View>
+              : <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}><NoTaskInfo /></View>
+        }
       </SafeAreaView>
     </View>
   );

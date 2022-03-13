@@ -30,7 +30,7 @@ export const calculateTime = (time: number): ITime => {
   return timeLeft;
 }
 
-const getTasks = async (): Promise<ITask[]> => {
+export const getTasks = async (): Promise<ITask[]> => {
   return JSON.parse((await AsyncStorage.getItem("TASKS")) || "[]");
 };
 
