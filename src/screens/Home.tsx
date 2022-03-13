@@ -11,6 +11,7 @@ export const Home: React.FC<any> = ({ navigation }) => {
   const [tasks, SetTasks] = React.useState<ITask[]>([]);
 
   const deleteTaskAlert = (name: string, id: string) =>
+  {
     Alert.alert("DELETE TASK", `Are you sure you want to delete ${name} ?`, [
       {
         text: "Cancel",
@@ -19,7 +20,8 @@ export const Home: React.FC<any> = ({ navigation }) => {
       },
       { text: "YES", onPress: async () => await deleteTask(id) },
     ]);
-
+  }
+  
   React.useEffect(() => {
     (async () => {
       const _tasks = JSON.parse((await AsyncStorage.getItem("TASKS")) || "[]");
