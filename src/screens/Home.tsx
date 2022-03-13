@@ -30,9 +30,24 @@ export const Home: React.FC<any> = ({ navigation }) => {
   const deleteTask = async (id: string) => {
     const index = tasks.findIndex((x) => x.uid === id);
     if (index !== -1) {
-      tasks.splice(index, 1)
-      const tmp = tasks ;
+      tasks.splice(index, 1);
+      const tmp = tasks;
       await AsyncStorage.setItem("TASKS", JSON.stringify(tmp));
+      SetTasks([...tmp]);
+    }
+  };
+
+  const activeTask = (id: string) => {
+    const index = tasks.findIndex((x) => x.uid == id);
+    if (index != -1) {
+      let isActive = false;
+      if (tasks[index].active == true) isActive = true;
+      const tmp = tasks.map((task) => ({
+        ...task,
+        active: false,
+      }));
+      if (!isActive) tmp[index].active = true;
+      console.log("TASKS => ", tmp);
       SetTasks([...tmp]);
     }
   };
@@ -52,7 +67,7 @@ export const Home: React.FC<any> = ({ navigation }) => {
           {tasks.map((task, key) => (
             <View key={key} style={styles.item}>
               <Task
-                press={() => {}}
+                press={() => activeTask(task.uid)}
                 longPress={() => deleteTaskAlert(task.name, task.uid)}
                 active={task.active}
                 name={task.name}
