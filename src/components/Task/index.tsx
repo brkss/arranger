@@ -4,7 +4,7 @@ import { ProgressBar } from "./Progress";
 import { Tag } from "./Tag";
 import { ITime } from "../../utils/types/Time";
 import { useTimer, formatTime } from "../../utils/hooks";
-import { calculateTime } from "../../utils/modules";
+import { calculateTime, parseTime } from "../../utils/modules";
 
 interface Props {
   name: string;
@@ -48,9 +48,9 @@ export const Task: React.FC<Props> = ({
         </Text>
       ) : (
         <Text style={styles.time}>
-          {formatTime(calculateTime(time).hours)}:
-          {formatTime(calculateTime(time).minutes)}:
-          {formatTime(calculateTime(time).seconds)}
+          {formatTime(parseTime(progress).hours)}:
+          {formatTime(parseTime(progress).minutes)}:
+          {formatTime(parseTime(progress).seconds)}
         </Text>
       )}
       <ProgressBar />

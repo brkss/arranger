@@ -30,6 +30,25 @@ export const calculateTime = (time: number): ITime => {
   return timeLeft;
 }
 
+
+export const parseTime = (progress: number) : ITime => {
+
+  let time : ITime = {
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  };
+  if (progress > 0) {
+    time = {
+      hours: Math.floor((progress / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((progress / 1000 / 60) % 60),
+      seconds: Math.floor((progress / 1000) % 60),
+    };
+  }
+  return time;
+
+}
+
 export const getTasks = async (): Promise<ITask[]> => {
   return JSON.parse((await AsyncStorage.getItem("TASKS")) || "[]");
 };
