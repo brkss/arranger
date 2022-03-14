@@ -23,8 +23,8 @@ export const Task: React.FC<Props> = ({
   press,
   longPress,
 }) => {
-  const timer = useTimer(time);
-  const [t, setT] = React.useState<ITime | null>(null);
+  let timer = null;
+  if (active) timer = useTimer(time);
 
   return (
     <Pressable
@@ -42,9 +42,10 @@ export const Task: React.FC<Props> = ({
     >
       {active ? <Tag /> : null}
       <Text style={styles.title}>{name}</Text>
-      {active && t ? (
+      {active && timer ? (
         <Text style={styles.time}>
-          {formatTime(t.hours)}:{formatTime(t.minutes)}:{formatTime(t.seconds)}
+          {formatTime(timer.hours)}:{formatTime(timer.minutes)}:
+          {formatTime(timer.seconds)}
         </Text>
       ) : (
         <Text style={styles.time}>
