@@ -53,12 +53,12 @@ export const getTasks = async (): Promise<ITask[]> => {
   return JSON.parse((await AsyncStorage.getItem("TASKS")) || "[]");
 };
 
-export const saveTaskProgress = async (id: string, time: number) => {
+export const saveTaskProgress = async (id: string ) => {
   const tasks: ITask[] = await getTasks();
   const index = tasks.findIndex((x) => (x.uid = id));
   if (index != -1) {
-    const diff = time - tasks[index].start;
-    tasks[index].progress = diff;
+    const progress = +new Date() - (+new Date(tasks[index].start) + tasks[index].progress);
+    tasks[index].progress = progress;
     await AsyncStorage.setItem("TASKS", JSON.stringify(tasks));
   }
 };

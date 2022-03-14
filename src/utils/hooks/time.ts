@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { calculateTime } from '../modules';
 import { ITime } from '../types';
+import { getTasks } from '../modules'
+
 
 export const formatTime = (t: number) => {
   if(t < 10)
@@ -10,14 +12,15 @@ export const formatTime = (t: number) => {
 
 ;
 
-export const useTimer = (_time: number) => {
+export const useTimer = (_time: number, id: string) => {
   const [time, SetTime] = useState<ITime>(calculateTime(_time));
-
+  
   useEffect(() => {
     const timer = setTimeout(() => {
       SetTime(calculateTime(_time));
     }, 1000);
   }, [time]);
+
 
   console.log("seconds => ", time.seconds)
   return time;
