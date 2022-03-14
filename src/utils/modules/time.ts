@@ -11,8 +11,8 @@ import { ITime } from '../types';
  *
  */
 
-export const calculateTime = (time: number): ITime => {
-  let difference = +new Date() - +new Date(time);
+export const calculateTime = (time: number, progress?: number): ITime => {
+  let difference = (+new Date() + (progress || 0)) - +new Date(time);
 
   let timeLeft: ITime = {
     hours: 0,
@@ -52,6 +52,24 @@ export const parseTime = (progress: number) : ITime => {
 export const getTasks = async (): Promise<ITask[]> => {
   return JSON.parse((await AsyncStorage.getItem("TASKS")) || "[]");
 };
+
+export const activateTask = async (id: string) => {
+
+  const tasks = await getTasks();
+  const index = tasks.findIndex(x => x.uid === id);
+  const ai = tasks.findIndex(x => x.active === true);
+  if(index != -1){
+    if(ai != -1){
+      tasks[ai].active = false;
+      tasks[ai].progress = +new Date() - tasks[ai].start;
+      tasks[ai].start = 0;
+    }
+    tasks[index].active = true;
+    tasks[index].start = +new Date();
+    await AsyncStorage.setItem('TASKS', JSON.stringify(tasks));
+  }
+
+} 
 
 export const saveTaskProgress = async (id: string ) => {
   const tasks: ITask[] = await getTasks();

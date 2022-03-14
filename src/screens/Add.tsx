@@ -25,8 +25,7 @@ export const Add: React.FC<any> = ({ navigation }) => {
       name: form.name,
       limitHour: parseInt(form.hours) || 0,
       limitMinutes: parseInt(form.minutes) || 0,
-      time: new Date().getTime(),
-      start: new Date().getTime(),
+      start: 0,
       active: false,
       progress: 0,
     };

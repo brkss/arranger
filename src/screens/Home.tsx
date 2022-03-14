@@ -4,6 +4,7 @@ import { Task, AddButton, NavigationMenu } from "../components";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
 import { ITask } from "../utils/types";
+import { activateTask, getTasks } from "../utils/modules";
 
 export const Home: React.FC<any> = ({ navigation }) => {
   const isFocused = useIsFocused();
@@ -23,8 +24,7 @@ export const Home: React.FC<any> = ({ navigation }) => {
 
   React.useEffect(() => {
     (async () => {
-      const _tasks = JSON.parse((await AsyncStorage.getItem("TASKS")) || "[]");
-      SetTasks(_tasks);
+      SetTasks(await getTasks());
     })();
   }, [isFocused]);
 
@@ -38,19 +38,9 @@ export const Home: React.FC<any> = ({ navigation }) => {
     }
   };
 
-  const activeTask = async (id: string) => {
-    const index = tasks.findIndex((x) => x.uid == id);
-    if (index != -1) {
-      let isActive = false;
-      if (tasks[index].active == true) isActive = true;
-      const tmp = tasks.map((task) => ({
-        ...task,
-        active: false,
-      }));
-      if (!isActive) tmp[index].active = true;
-      SetTasks([...tmp]);
-      await AsyncStorage.setItem("TASKS", JSON.stringify(tmp));
-    }
+  const activate = async (id: string) => {
+    await activateTask(id);
+    SetTasks(await getTasks());
   };
 
   return (
@@ -68,11 +58,11 @@ export const Home: React.FC<any> = ({ navigation }) => {
           {tasks.map((task, key) => (
             <View key={key} style={styles.item}>
               <Task
-                press={() => activeTask(task.uid)}
+                start={task.start}
+                press={() => activate(task.uid)}
                 longPress={() => deleteTaskAlert(task.name, task.uid)}
                 active={task.active}
                 name={task.name}
-                time={task.time}
                 progress={0}
               />
             </View>

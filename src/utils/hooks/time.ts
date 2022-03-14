@@ -12,12 +12,12 @@ export const formatTime = (t: number) => {
 
 ;
 
-export const useTimer = (_time: number, id: string) => {
-  const [time, SetTime] = useState<ITime>(calculateTime(_time));
+export const useTimer = (_time: number, progress: number) => {
+  const [time, SetTime] = useState<ITime>(calculateTime(_time, progress));
   
   useEffect(() => {
     const timer = setTimeout(() => {
-      SetTime(calculateTime(_time));
+      SetTime(calculateTime(_time, progress));
     }, 1000);
   }, [time]);
 

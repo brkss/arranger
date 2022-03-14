@@ -8,23 +8,23 @@ import { calculateTime, parseTime } from "../../utils/modules";
 
 interface Props {
   name: string;
-  time: number;
   progress: number;
   active: boolean;
   press: () => void;
   longPress: () => void;
+  start: number;
 }
 
 export const Task: React.FC<Props> = ({
   name,
-  time,
   progress,
   active,
   press,
+  start,
   longPress,
 }) => {
   let timer = null;
-  if (active) timer = useTimer(time);
+  if (active) timer = useTimer(start);
 
   return (
     <Pressable
