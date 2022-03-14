@@ -46,13 +46,18 @@ export const activateTask = async (id: string) => {
   const index = tasks.findIndex((x) => x.uid === id);
   const ai = tasks.findIndex((x) => x.active === true);
   if (index != -1) {
+    let isActive = false;
+    if (tasks[index].active) isActive = true;
+    console.log("Activate Task !");
     if (ai != -1) {
       tasks[ai].active = false;
       tasks[ai].progress += +new Date() - tasks[ai].start;
       tasks[ai].start = 0;
     }
-    tasks[index].active = true;
-    tasks[index].start = +new Date();
+    if (!isActive) {
+      tasks[index].active = true;
+      tasks[index].start = +new Date();
+    }
     await AsyncStorage.setItem("TASKS", JSON.stringify(tasks));
   }
 };

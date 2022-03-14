@@ -22,6 +22,5 @@ export const useTimer = (_time: number, progress: number) => {
   }, [time]);
 
 
-  console.log("seconds => ", time.seconds)
   return time;
 };
