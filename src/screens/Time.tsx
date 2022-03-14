@@ -24,6 +24,7 @@ export const Timer: React.FC<any> = ({ navigation }) => {
     (async () => {
       await getActiveTask();
     })();
+    return setTask(null);
   }, []);
 
   return (
