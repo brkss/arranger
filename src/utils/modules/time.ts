@@ -2,15 +2,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ITask } from "../types/Task";
 import { ITime } from "../types";
 
-/*
- * Hours    => 01
- * Minutes  => 20
- * Seconds  => 00
- * = 100%
- *
- *
- */
-
 export const calculateTime = (time: number, progress?: number): ITime => {
   let difference = +new Date() + (progress || 0) - +new Date(time);
 

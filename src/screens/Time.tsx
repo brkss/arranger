@@ -36,7 +36,7 @@ export const Timer: React.FC<any> = ({ navigation }) => {
           <View style={{ flex: 1 }}>
             <View style={{ flex: 1, justifyContent: "center" }}>
               <Text style={styles.title}>{task.name}</Text>
-              <TimerCount otime={task.start} />
+              <TimerCount progress={task.progress} otime={task.start} />
             </View>
             <EndTaskTimerButtom />
           </View>
