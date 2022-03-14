@@ -63,7 +63,7 @@ export const Home: React.FC<any> = ({ navigation }) => {
                 longPress={() => deleteTaskAlert(task.name, task.uid)}
                 active={task.active}
                 name={task.name}
-                progress={0}
+                progress={task.progress}
               />
             </View>
           ))}

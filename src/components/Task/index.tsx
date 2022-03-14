@@ -24,7 +24,7 @@ export const Task: React.FC<Props> = ({
   longPress,
 }) => {
   let timer = null;
-  if (active) timer = useTimer(start);
+  if (active) timer = useTimer(start, progress);
 
   return (
     <Pressable

@@ -4,12 +4,12 @@ import { formatTime, useTimer } from "../../utils";
 
 export interface Props {
   otime: number;
+  progress: number;
 }
 
-const TIME = new Date().getTime();
 
-export const TimerCount: React.FC<Props> = ({otime}) => {
-  const time = useTimer(otime);
+export const TimerCount: React.FC<Props> = ({otime, progress}) => {
+  const time = useTimer(otime, progress);
   return (
     <View style={styles.container}>
       <View style={styles.timeContainer}>
