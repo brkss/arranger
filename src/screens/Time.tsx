@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#151515",
+    padding: 10,
   },
   title: {
     fontFamily: "condesed",
