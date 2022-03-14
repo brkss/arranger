@@ -2,10 +2,14 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { formatTime, useTimer } from "../../utils";
 
+export interface Props {
+  otime: number;
+}
+
 const TIME = new Date().getTime();
 
-export const TimerCount: React.FC = () => {
-  const time = useTimer(TIME);
+export const TimerCount: React.FC<Props> = ({otime}) => {
+  const time = useTimer(otime);
   return (
     <View style={styles.container}>
       <View style={styles.timeContainer}>

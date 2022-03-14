@@ -5,7 +5,7 @@ export interface ITask {
   name: string;
   limitHour: number;
   limitMinutes: number;
-  time: string;
+  time: number;
   start: number;
   active: boolean;
   progress: number;

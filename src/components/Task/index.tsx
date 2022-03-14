@@ -2,17 +2,30 @@ import React from "react";
 import { Pressable, Text, StyleSheet } from "react-native";
 import { ProgressBar } from "./Progress";
 import { Tag } from "./Tag";
+import { ITime } from "../../utils/types/Time";
+import { useTimer, formatTime } from "../../utils/hooks";
+import { calculateTime } from "../../utils/modules";
 
 interface Props {
   name: string;
-  time: string;
+  time: number;
   progress: number;
   active: boolean;
   press: () => void;
   longPress: () => void;
 }
 
-export const Task: React.FC<Props> = ({ name, time, progress, active, press, longPress }) => {
+export const Task: React.FC<Props> = ({
+  name,
+  time,
+  progress,
+  active,
+  press,
+  longPress,
+}) => {
+  const timer = useTimer(time);
+  const [t, setT] = React.useState<ITime | null>(null);
+
   return (
     <Pressable
       onPress={() => press()}
@@ -29,7 +42,17 @@ export const Task: React.FC<Props> = ({ name, time, progress, active, press, lon
     >
       {active ? <Tag /> : null}
       <Text style={styles.title}>{name}</Text>
-      <Text style={styles.time}>{time}</Text>
+      {active && t ? (
+        <Text style={styles.time}>
+          {formatTime(t.hours)}:{formatTime(t.minutes)}:{formatTime(t.seconds)}
+        </Text>
+      ) : (
+        <Text style={styles.time}>
+          {formatTime(calculateTime(time).hours)}:
+          {formatTime(calculateTime(time).minutes)}:
+          {formatTime(calculateTime(time).seconds)}
+        </Text>
+      )}
       <ProgressBar />
     </Pressable>
   );
