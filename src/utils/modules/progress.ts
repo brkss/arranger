@@ -11,6 +11,8 @@ export const getTaskProgress = async (id: string) => {
     }  
     const p = (tasks[index].limitHour * 60 * 60 * 1000) + ( tasks[index].limitMinutes * 60 * 1000 ) 
     progress = tasks[index].progress * 100 / p;
+    if(progress > 100)
+      return 100;
   }
   return progress;
 }
