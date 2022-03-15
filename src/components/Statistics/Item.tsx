@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import {ITask} from "../../utils/types";
 import { ProgressBar } from "../Task/Progress";
 import { parseTime } from '../../utils/modules';
-
+import { Tag } from '../Task/Tag';
 
 interface Props {
   task: ITask;
@@ -14,6 +14,10 @@ export const StatisticsItem: React.FC<Props> = ({task}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{task.name}</Text>
+      {
+        task.active ?
+          <Tag /> : null
+      }
       <Text style={styles.time}>You spent {time.hours}:{time.minutes}:{time.seconds}</Text>
       <ProgressBar id={task.uid} />
     </View>

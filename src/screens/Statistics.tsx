@@ -3,15 +3,17 @@ import { View, Text, StyleSheet, SafeAreaView, ScrollView } from "react-native";
 import { StatisticsItem } from "../components";
 import { getTasks } from "../utils/modules";
 import { ITask } from "../utils/types";
+import { useIsFocused } from "@react-navigation/native";
 
 export const Statistics: React.FC = () => {
+  const isFocus = useIsFocused();
   const [tasks, setTasks] = React.useState<ITask[]>(null);
   React.useEffect(() => {
     (async () => {
       const ts = await getTasks();
       setTasks(ts);
     })();
-  }, []);
+  }, [isFocus]);
 
   return (
     <View style={styles.container}>
