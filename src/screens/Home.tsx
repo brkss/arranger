@@ -39,6 +39,7 @@ export const Home: React.FC<any> = ({ navigation }) => {
   };
 
   const activate = async (id: string) => {
+    console.log("ACTIVATE TASK !");
     await activateTask(id);
     SetTasks(await getTasks());
   };
@@ -58,12 +59,9 @@ export const Home: React.FC<any> = ({ navigation }) => {
           {tasks.map((task, key) => (
             <View key={key} style={styles.item}>
               <Task
-                start={task.start}
+                task={task}
                 press={() => activate(task.uid)}
                 longPress={() => deleteTaskAlert(task.name, task.uid)}
-                active={task.active}
-                name={task.name}
-                progress={task.progress}
               />
             </View>
           ))}

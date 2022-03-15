@@ -1,10 +1,24 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
+import { getTaskProgress } from "../../utils/modules";
 
-export const ProgressBar: React.FC = () => {
+interface Props {
+  id: string;
+}
+
+export const ProgressBar: React.FC<Props> = ({ id }) => {
+
+  const [progress, setProgress] = React.useState(0);
+  React.useEffect(() => {
+    (async () => {
+      const p = await getTaskProgress(id);
+      setProgress(p);
+    })();
+  }, []);
+
   return (
     <View style={styles.container}>
-      <View style={[styles.progress, { width: "40%" }]} />
+      <View style={[styles.progress, { width: `${progress}%` }]} />
     </View>
   );
 };

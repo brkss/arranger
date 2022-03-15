@@ -4,27 +4,24 @@ import { ProgressBar } from "./Progress";
 import { Tag } from "./Tag";
 import { ITime } from "../../utils/types/Time";
 import { useTimer, formatTime } from "../../utils/hooks";
-import { calculateTime, parseTime } from "../../utils/modules";
+import {
+  calculateTime,
+  getTaskProgress,
+  parseTime,
+  saveTaskProgress,
+} from "../../utils/modules";
+import { ITask } from "../../utils/types";
 
 interface Props {
-  name: string;
-  progress: number;
-  active: boolean;
   press: () => void;
   longPress: () => void;
-  start: number;
+  task: ITask;
 }
 
-export const Task: React.FC<Props> = ({
-  name,
-  progress,
-  active,
-  press,
-  start,
-  longPress,
-}) => {
+export const Task: React.FC<Props> = ({ task, press, longPress }) => {
   let timer = null;
-  if (active) timer = useTimer(start, progress);
+  if (task.active) timer = useTimer(task.start, task.progress);
+  //const timer = useTimer(task.start, task.progress);
 
   return (
     <Pressable
@@ -33,28 +30,28 @@ export const Task: React.FC<Props> = ({
       style={[
         styles.container,
         {
-          borderColor: active ? "#1600FF" : "#979797",
-          borderWidth: active ? 6 : 1,
-          borderLeftWidth: active ? 6 : 0,
-          borderTopWidth: active ? 6 : 0,
+          borderColor: task.active ? "#1600FF" : "#979797",
+          borderWidth: task.active ? 6 : 1,
+          borderLeftWidth: task.active ? 6 : 0,
+          borderTopWidth: task.active ? 6 : 0,
         },
       ]}
     >
-      {active ? <Tag /> : null}
-      <Text style={styles.title}>{name}</Text>
-      {active && timer ? (
+      {task.active ? <Tag /> : null}
+      <Text style={styles.title}>{task.name}</Text>
+      {task.active && timer ? (
         <Text style={styles.time}>
           {formatTime(timer.hours)}:{formatTime(timer.minutes)}:
           {formatTime(timer.seconds)}
         </Text>
       ) : (
         <Text style={styles.time}>
-          {formatTime(parseTime(progress).hours)}:
-          {formatTime(parseTime(progress).minutes)}:
-          {formatTime(parseTime(progress).seconds)}
+          {formatTime(parseTime(task.progress).hours)}:
+          {formatTime(parseTime(task.progress).minutes)}:
+          {formatTime(parseTime(task.progress).seconds)}
         </Text>
       )}
-      <ProgressBar />
+      <ProgressBar id={task.uid} />
     </Pressable>
   );
 };
