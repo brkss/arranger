@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { calculateTime } from "../modules";
 import { ITime } from "../types";
-import { getTasks } from "../modules";
 
 export const formatTime = (t: number) => {
   if (t < 10) return `0${t}`;

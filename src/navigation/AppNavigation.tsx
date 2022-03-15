@@ -1,6 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Home, Timer, Add, Settings, Focus } from "../screens";
+import { Home, Timer, Add, Settings, Focus, Statistics } from "../screens";
 
 export const AppNavigation: React.FC = () => {
   const { Group, Navigator, Screen } = createStackNavigator();
@@ -11,6 +11,8 @@ export const AppNavigation: React.FC = () => {
         <Screen name={"Home"} component={Home} />
         <Screen name={"Timer"} component={Timer} />
         <Screen name={"Settings"} component={Settings} />
+        <Screen name={"Focus"} component={Focus} />
+        <Screen name={'Statistics'} component={Statistics} />
       </Group>
       <Group
         screenOptions={{
@@ -21,8 +23,8 @@ export const AppNavigation: React.FC = () => {
           },
         }}
       >
+        
         <Screen name={"add"} component={Add} />
-        <Screen name={"Focus"} component={Focus} />
       </Group>
     </Navigator>
   );

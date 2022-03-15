@@ -13,7 +13,7 @@ export const NavigationMenu : React.FC<Props> = ({navigation}) => {
     <View style={styles.container}>
       <View style={styles.row}>
         <View style={styles.item}>
-          <MenuItem name={'STATISTICS'}  navigate={() => {}} />
+          <MenuItem name={'STATISTICS'}  navigate={() => navigation.push('Statistics')} />
         </View>
         <View style={styles.item}>
           <MenuItem name={'TIMER'} navigate={() => navigation.push('Timer') } />

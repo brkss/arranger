@@ -6,3 +6,4 @@ export * from './Exit';
 export * from './Navigation';
 export * from './Form';
 export * from './Loading';
+export * from './Statistics';

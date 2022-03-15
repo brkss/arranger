@@ -3,3 +3,4 @@ export * from './Time';
 export * from './Add';
 export * from './Settings';
 export * from './Focus';
+export * from './Statistics';
