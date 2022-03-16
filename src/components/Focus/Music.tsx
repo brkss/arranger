@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { MusicControl } from './MusicControl';
 
 const { height, width } = Dimensions.get("screen");
 
@@ -8,6 +9,7 @@ export const FocusMusic: React.FC = () => {
     <View style={styles.container}>
       <Text style={styles.title}>DISCOVERY 3</Text>
       <Text style={styles.time}>21:04</Text>
+      <MusicControl />
     </View>
   );
 };
