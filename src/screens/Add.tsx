@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, SafeAreaView } from "react-native";
 import { Input, FormButton, LimitInput } from "../components";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import uuid from "react-native-uuid";
@@ -37,12 +37,14 @@ export const Add: React.FC<any> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.incube}>
+        <SafeAreaView>
         <Text style={styles.heading}>Create New {"\n"}Task.</Text>
         <View>
           <Input onChange={(v) => handleForm("name", v)} placeholder={"NAME"} />
           <LimitInput onChange={(k, v) => handleForm(k, v)} />
           <FormButton pressed={() => add()} />
         </View>
+    </SafeAreaView>
       </View>
     </View>
   );
