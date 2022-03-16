@@ -4,17 +4,59 @@ import Svg, { Rect, Line } from "react-native-svg";
 import Animated, {
   useAnimatedProps,
   useSharedValue,
+  withRepeat,
+  withTiming,
+  withDelay,
 } from "react-native-reanimated";
+
+interface IPosition {
+  x: number;
+  y: number;
+}
 
 const AnimatedRect = Animated.createAnimatedComponent(Rect);
 
 const { height, width } = Dimensions.get("screen");
 const GAP = 20;
 const STROKE = 1;
+const DELAY = 1000;
 
 export const GridSketch: React.FC = () => {
   const rectX = useSharedValue(24);
   const rectY = useSharedValue(64);
+  const move = useSharedValue(width - GAP - 8);
+
+  React.useEffect(() => {
+    const pos = rectNextPosition();
+    //console.log("POS X => ", pos.x);
+    //console.log("POS Y => ", pos.y);
+    rectX.value = withDelay(
+      DELAY,
+      withRepeat(withTiming(move.value, { duration: 900 }), -1, false)
+    );
+    /*
+    rectY.value = withDelay(
+      DELAY,
+      withRepeat(withTiming(height, { duration: 100 }), -1, false)
+      );
+     */
+  }, []);
+
+  const rectNextPosition = (): IPosition => {
+    const pos: IPosition = {
+      x: rectX.value,
+      y: rectY.value,
+    };
+    if (rectX.value + 24 >= 4 && rectX.value + 24 <= width - 4)
+      pos.x = rectX.value + 24;
+    else if (rectY.value + 24 >= 4 && rectY.value + 24 <= height - 4)
+      pos.y = rectY.value + 24;
+    else {
+      (pos.x = 24), (pos.y = 64);
+    }
+
+    return pos;
+  };
 
   const rectStyle = useAnimatedProps(() => {
     return {
@@ -37,14 +79,13 @@ export const GridSketch: React.FC = () => {
     }
     return points;
   };
-  const moveRect = () => {};
   return (
     <View style={{ flex: 1 }}>
       <Svg height={height} width={width} style={{ backgroundColor: "black" }}>
         {generateHorizontalLines().map((point, key) => (
           <Line
             key={key}
-            stroke="white"
+            stroke="blue"
             strokeWidth={STROKE}
             x1="0"
             y1={point}
@@ -55,7 +96,7 @@ export const GridSketch: React.FC = () => {
         {generateVerticalLines().map((point, key) => (
           <Line
             key={key}
-            stroke="white"
+            stroke="blue"
             strokeWidth={STROKE}
             x1={point}
             y1={0}
