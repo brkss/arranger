@@ -32,7 +32,6 @@ export const Home: React.FC<any> = ({ navigation }) => {
   const isFocused = useIsFocused();
 
   const [tasks, SetTasks] = React.useState<ITask[]>([]);
-  const [chunks, SetChunks] = React.useState<ITask[][]>([[]]);
 
   const deleteTaskAlert = (name: string, id: string) => {
     Alert.alert("DELETE TASK", `Are you sure you want to delete ${name} ?`, [
@@ -49,7 +48,6 @@ export const Home: React.FC<any> = ({ navigation }) => {
     (async () => {
       const tasks: ITask[] = await getTasks();
       SetTasks(tasks);
-      SetChunks(chunking(tasks));
     })();
   }, [isFocused]);
 
@@ -77,10 +75,10 @@ export const Home: React.FC<any> = ({ navigation }) => {
         </View>
         <AddButton add={() => navigation.push("add")} />
         <ScrollView>
-          {chunks.map((chunk, key) => (
+          {chunking(tasks).map((chunk, key) => (
             <View key={key} style={styles.row}>
               {chunk.map((task, key) => (
-                <View style={styles.item}>
+                <View key={key} style={styles.item}>
                   <Task
                     task={task}
                     press={() => activate(task.uid)}

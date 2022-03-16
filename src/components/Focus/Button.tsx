@@ -17,9 +17,11 @@ const styles = StyleSheet.create({
   container: {
     //flex: 1,
     padding: 10,
+    paddingHorizontal: 30,
     backgroundColor: "black",
     position: "absolute",
-    bottom: 0,
+    bottom: 30,
+    alignSelf: "center",
   },
   txt: {
     textAlign: "center",
