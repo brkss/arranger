@@ -7,6 +7,7 @@ import Animated, {
   withRepeat,
   withTiming,
   withDelay,
+  useAnimatedReaction,
 } from "react-native-reanimated";
 
 interface IPosition {
@@ -27,20 +28,31 @@ export const GridSketch: React.FC = () => {
   const move = useSharedValue(width - GAP - 8);
 
   React.useEffect(() => {
-    const pos = rectNextPosition();
-    //console.log("POS X => ", pos.x);
-    //console.log("POS Y => ", pos.y);
-    rectX.value = withDelay(
-      DELAY,
-      withRepeat(withTiming(move.value, { duration: 900 }), -1, false)
-    );
-    /*
-    rectY.value = withDelay(
-      DELAY,
-      withRepeat(withTiming(height, { duration: 100 }), -1, false)
-      );
-     */
+    move.value = 1;
   }, []);
+
+  useAnimatedReaction(
+    () => move.value,
+    (v) => {
+      if (v == 1) {
+        rectX.value = withTiming(width - 34, { duration: 900 }, () => {
+          move.value = 2;
+        });
+      } else if (v == 2) {
+        rectY.value = withTiming(height - 64, { duration: 900 }, () => [
+          (move.value = 3),
+        ]);
+      } else if (v == 3) {
+        rectX.value = withTiming(24, { duration: 900 }, () => {
+          move.value = 4;
+        });
+      } else if (v == 4) {
+        rectY.value = withTiming(64, { duration: 900 }, () => {
+          move.value = 1;
+        });
+      }
+    }
+  );
 
   const rectNextPosition = (): IPosition => {
     const pos: IPosition = {
