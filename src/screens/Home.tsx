@@ -1,15 +1,38 @@
 import React from "react";
-import { View, Text, StyleSheet, SafeAreaView, Alert } from "react-native";
-import { Task, AddButton, NavigationMenu } from "../components";
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  Alert,
+  ScrollView,
+} from "react-native";
+import {
+  EnterFocusModeButton,
+  Task,
+  AddButton,
+  NavigationMenu,
+} from "../components";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
 import { ITask } from "../utils/types";
 import { activateTask, getTasks } from "../utils/modules";
 
+const chunking = (arr: ITask[]): ITask[][] => {
+  const chunked: ITask[][] = [[]];
+  let i: number, j: number;
+  for (i = 0, j = arr.length; i < j; i += 2) {
+    let chunk = arr.slice(i, i + 2);
+    chunked.push(chunk);
+  }
+  return chunked;
+};
+
 export const Home: React.FC<any> = ({ navigation }) => {
   const isFocused = useIsFocused();
 
   const [tasks, SetTasks] = React.useState<ITask[]>([]);
+  const [chunks, SetChunks] = React.useState<ITask[][]>([[]]);
 
   const deleteTaskAlert = (name: string, id: string) => {
     Alert.alert("DELETE TASK", `Are you sure you want to delete ${name} ?`, [
@@ -24,7 +47,9 @@ export const Home: React.FC<any> = ({ navigation }) => {
 
   React.useEffect(() => {
     (async () => {
-      SetTasks(await getTasks());
+      const tasks: ITask[] = await getTasks();
+      SetTasks(tasks);
+      SetChunks(chunking(tasks));
     })();
   }, [isFocused]);
 
@@ -46,26 +71,27 @@ export const Home: React.FC<any> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <SafeAreaView>
-        <View style={styles.row}>
-          <View
-            style={{ width: "100%", minHeight: 100, justifyContent: "center" }}
-          >
-            <NavigationMenu navigation={navigation} />
-          </View>
-          <View style={{ width: "100%" }}>
-            <AddButton add={() => navigation.push("add")} />
-          </View>
-          {tasks.map((task, key) => (
-            <View key={key} style={styles.item}>
-              <Task
-                task={task}
-                press={() => activate(task.uid)}
-                longPress={() => deleteTaskAlert(task.name, task.uid)}
-              />
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={styles.navigationContainer}>
+          <NavigationMenu navigation={navigation} />
+        </View>
+        <AddButton add={() => navigation.push("add")} />
+        <ScrollView>
+          {chunks.map((chunk, key) => (
+            <View key={key} style={styles.row}>
+              {chunk.map((task, key) => (
+                <View style={styles.item}>
+                  <Task
+                    task={task}
+                    press={() => activate(task.uid)}
+                    longPress={() => deleteTaskAlert(task.name, task.uid)}
+                  />
+                </View>
+              ))}
             </View>
           ))}
-        </View>
+        </ScrollView>
+        <EnterFocusModeButton press={() => {}} />
       </SafeAreaView>
     </View>
   );
@@ -83,5 +109,9 @@ const styles = StyleSheet.create({
   item: {
     //padding: 5,
     width: "50%",
+  },
+  navigationContainer: {
+    minHeight: 100,
+    justifyContent: "center",
   },
 });

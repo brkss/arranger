@@ -7,3 +7,4 @@ export * from './Navigation';
 export * from './Form';
 export * from './Loading';
 export * from './Statistics';
+export * from './Focus';
