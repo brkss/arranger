@@ -19,9 +19,10 @@ export const Statistics: React.FC = () => {
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <Text style={styles.heading}>STATISTICS</Text>
-        <ScrollView style={styles.list}>
+        <ScrollView showsVerticalScrollIndicator={false} style={styles.list}>
           {tasks &&
             tasks.map((task, key) => <StatisticsItem key={key} task={task} />)}
+          <View style={{ height: 100 }} />
         </ScrollView>
       </SafeAreaView>
     </View>

@@ -74,7 +74,7 @@ export const Home: React.FC<any> = ({ navigation }) => {
           <NavigationMenu navigation={navigation} />
         </View>
         <AddButton add={() => navigation.push("add")} />
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           {chunking(tasks).map((chunk, key) => (
             <View key={key} style={styles.row}>
               {chunk.map((task, key) => (
@@ -88,6 +88,7 @@ export const Home: React.FC<any> = ({ navigation }) => {
               ))}
             </View>
           ))}
+              <View style={{ height: 100 }} />
         </ScrollView>
         <EnterFocusModeButton press={() => navigation.push("Focus")} />
       </SafeAreaView>
