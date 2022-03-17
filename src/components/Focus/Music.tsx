@@ -4,12 +4,16 @@ import { MusicControl } from './MusicControl';
 
 const { height, width } = Dimensions.get("screen");
 
-export const FocusMusic: React.FC = () => {
+interface Props {
+  press: () => void;
+}
+
+export const FocusMusic: React.FC<Props> = ({press}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>DISCOVERY 3</Text>
       <Text style={styles.time}>21:04</Text>
-      <MusicControl />
+      <MusicControl press={() => press()} />
     </View>
   );
 };

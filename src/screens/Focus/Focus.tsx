@@ -1,14 +1,15 @@
 import React from "react";
 import { View, StyleSheet, Text, Dimensions } from "react-native";
 import { _sketch } from "../../utils/sketch";
-import { GridSketch } from '../../components/Sketch';
-import { FocusMusic } from '../../components';
+import { GridSketch, MovingGrid } from "../../components/Sketch";
+import { FocusMusic } from "../../components";
 
 export const Focus: React.FC = () => {
+  const [s, setS] = React.useState(false);
   return (
     <View style={styles.container}>
-      <GridSketch />
-      <FocusMusic />
+      {s ? <GridSketch /> : <MovingGrid />}
+      <FocusMusic press={() => setS(!s)} />
     </View>
   );
 };

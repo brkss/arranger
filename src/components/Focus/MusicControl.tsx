@@ -1,9 +1,13 @@
 import React from "react";
 import { Pressable, Text, StyleSheet } from "react-native";
 
-export const MusicControl: React.FC = () => {
+interface Props {
+  press: () => void;
+}
+
+export const MusicControl: React.FC<Props> = ({press}) => {
   return (
-    <Pressable style={styles.container}>
+    <Pressable style={styles.container} onPress={() => press()}>
       <Text style={styles.txt}>PAUSE</Text>
     </Pressable>
   );
