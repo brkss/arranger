@@ -67,7 +67,6 @@ export const GridLine: React.FC<Props> = ({ pos, val, ww, wh }) => {
   return (
     <Svg>
       <AnimatedLine stroke="blue" strokeWidth={1} animatedProps={style} />
-      <Line />
     </Svg>
   );
 };
