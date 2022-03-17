@@ -14,7 +14,7 @@ export const useTimer = (_time: number, progress: number) => {
     const timer = setTimeout(() => {
       SetTime(calculateTime(_time, progress));
     }, 1000);
-    //return () => SetTime({ hours: 0, minutes: 0, seconds: 0 });
+    //return () => SetTime(time);
   }, [time]);
 
   return time;
