@@ -90,7 +90,6 @@ export const Home: React.FC<any> = ({ navigation }) => {
           ))}
               <View style={{ height: 100 }} />
         </ScrollView>
-        <EnterFocusModeButton press={() => navigation.push("Focus")} />
       </SafeAreaView>
     </View>
   );
